@@ -1,4 +1,6 @@
-from show_stock import show_stock
+import os
+from functions_sales_system import show_stock, add_to_cart, clear_terminal, show_menu_input
+
 dict_stock = {
     1 : {"nome" : "dudu1",
          "valor": 1050,
@@ -17,22 +19,26 @@ dict_stock = {
          "quantidade" : 14141
          }
 }
-user_input = int(input("""
-    =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
-       Bem-Vindo(a) Loja Abóbora 
-    =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
-    [1]|Visualizar Estoque
-    [2]|Adicionar Item ao Carrinho
-    [4]|Finalizar Compra
-    [0]|Sair do sistema
-    """
-     ))
-if user_input == 1:
-    show_stock(stock)
 
-elif user_input == 2:
-    print("os produtos disponiveis são:")
-    show_stock(dict_stock)
+dict_user_cart = {}
+while True:
+    user_input = show_menu_input()
 
+    if user_input == 1:
+        clear_terminal()
+        print(f"{"Estoque":^44}")
+        show_stock(dict_stock,"id","Nome do produto", "Quantidade","Valor")
 
+    elif user_input == 2:
+        clear_terminal()
+        add_to_cart(dict_stock, dict_user_cart)
+
+    elif user_input == 3:
+        clear_terminal()
+
+        if not dict_user_cart:
+            print("O carrinho está vazio!!")
+        else:
+            print(f"{"Carrinho":^44}")
+            show_stock(dict_user_cart,"id","Nome do produto", "Quantidade","Valor")
 
